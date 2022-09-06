@@ -1,15 +1,17 @@
 function search_Data(){
     const searchResult = document.getElementById("resultSearch").value;
-
+    document.getElementById("resultSearch").value = "";
+    document.getElementById("getSong").innerHTML = "";
     fetch (`https://api.lyrics.ovh/suggest/${searchResult}`)
         .then(res =>res.json())
         .then(data => findData(data))
-        alert("Data Not Found")
+        // .catch(error => displayError('Something Went Wrong!! Please try again later!'));
         
 }
 function findData(song){
     // console.log(song.data)
-    const AllData = song.data;
+    const AllData1 = song.data;
+    const AllData = AllData1.slice(0, 10);
     // console.log(AllData)
     for (let i = 0; i < AllData.length; i++) {
         const AllDatabase = AllData[i];
@@ -26,7 +28,8 @@ function findData(song){
             </audio>
         </div>
         <div class="col-md-3 text-md-right text-center">
-            <button class="btn btn-success">Get Lyrics</button>
+
+            <a class="btn btn-success" href="${AllDatabase.link}" target="_blank">Play Full Song</a>
         </div>
         `
         getData.appendChild(setData);
